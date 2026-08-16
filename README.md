@@ -152,6 +152,7 @@ tabs_config:
     - switch.xiaomi_smart_pet_feeder_2_grain_compensation
     - button.xiaomi_smart_pet_feeder_2_tare_scale
     - button.xiaomi_smart_pet_feeder_2_reset_desiccant
+```
 
 ---
 
@@ -206,7 +207,11 @@ cards:
         icon_color: red
 ```
 
-### 3. Day / Night Screen Auto-Sleep Automation
+---
+
+## 🤖 Example Automations
+
+### Day / Night Screen Auto-Sleep Automation
 
 ```yaml
 alias: "Pet Feeder: Day / Night Screen Dimming"
