@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+
+cd "$(dirname "$0")/.."
+
+# Create config directory if not present
+mkdir -p config/custom_components
+ln -snf "$(pwd)/custom_components/xiaomi_feeder" "$(pwd)/config/custom_components/xiaomi_feeder"
+
+echo "🚀 Launching Home Assistant..."
+uv run hass --config "${PWD}/config" "$@"

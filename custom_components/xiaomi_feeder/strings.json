@@ -19,6 +19,55 @@
       "already_configured": "This device is already configured in Home Assistant."
     }
   },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Xiaomi Pet Feeder Schedule Settings",
+        "description": "{schedule_summary}\n\nChoose an action below to manage meals stored in device memory:",
+        "menu_options": {
+          "add_meal": "Add New Scheduled Meal",
+          "edit_select": "Edit an Existing Meal",
+          "delete_select": "Delete a Scheduled Meal",
+          "clear_all": "Clear All Schedules"
+        }
+      },
+      "add_meal": {
+        "title": "Add Scheduled Meal",
+        "description": "Set the daily feeding time and number of portions (1 portion ≈ 10–15g):",
+        "data": {
+          "time": "Meal Time",
+          "portions": "Portions"
+        }
+      },
+      "edit_select": {
+        "title": "Select Meal to Edit",
+        "description": "Choose which scheduled meal you want to modify:",
+        "data": {
+          "meal_index": "Scheduled Meal"
+        }
+      },
+      "edit_meal": {
+        "title": "Edit Scheduled Meal",
+        "description": "Update the meal time, portions, and active days:",
+        "data": {
+          "time": "Meal Time",
+          "portions": "Portions (1 portion ≈ 10-15g)",
+          "days": "Repeat Days"
+        }
+      },
+      "delete_select": {
+        "title": "Delete Scheduled Meal",
+        "description": "Select the meal you want to remove from the feeder's memory:",
+        "data": {
+          "meal_index": "Scheduled Meal to Delete"
+        }
+      },
+      "clear_all": {
+        "title": "Clear All Schedules",
+        "description": "Are you sure you want to erase all scheduled offline meals from device EEPROM memory?"
+      }
+    }
+  },
   "entity": {
     "sensor": {
       "bowl_weight": { "name": "Bowl Food Weight" },
@@ -27,12 +76,11 @@
       "previous_meal_intake": { "name": "Previous Meal Intake" },
       "next_feeding": { "name": "Next Feeding" },
       "schedule_count": { "name": "Hardware Schedule Count" },
-      "desiccant_days_left": { "name": "Desiccant Days Left" },
-      "desiccant_expiry": { "name": "Desiccant Expiry Date" },
       "last_feed_event": { "name": "Last Feed Event" },
       "feed_history": { "name": "Feeding History" },
       "timezone_offset": { "name": "Device Timezone Offset" },
-      "daily_progress": { "name": "Daily Schedule Progress" }
+      "daily_progress": { "name": "Daily Schedule Progress" },
+      "target_portions": { "name": "Target Feeding Portions" }
     },
     "binary_sensor": {
       "hopper_low": { "name": "Hopper Low" },
@@ -42,21 +90,17 @@
       "fault": { "name": "Device Fault" },
       "dispensing": { "name": "Dispensing" },
       "refill_alert": { "name": "Refill Alert" },
-      "desiccant_expired": { "name": "Desiccant Expired" },
       "dst_active": { "name": "DST Active" }
     },
     "button": {
       "feed": { "name": "Feed" },
       "tare_scale": { "name": "Tare Scale" },
-      "reset_desiccant": { "name": "Reset Desiccant Timer" },
       "clear_refill_alert": { "name": "Clear Refill Alert" },
       "clear_intake_alert": { "name": "Clear Low Intake Alert" },
       "clear_schedule": { "name": "Clear Hardware Schedule" }
     },
     "number": {
       "manual_portions": { "name": "Manual Feed Portions" },
-      "target_portions": { "name": "Target Feeding Portions" },
-      "desiccant_lifespan": { "name": "Desiccant Lifespan" },
       "refill_interval": { "name": "Refill Reminder Interval" },
       "intake_threshold": { "name": "Low Intake Alarm Threshold" }
     },

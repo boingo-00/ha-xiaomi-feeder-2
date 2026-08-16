@@ -22,7 +22,6 @@ class FeederSIID:
     PHYSICAL_CONTROLS = 3
     BATTERY = 4
     CUSTOM = 5
-    DESICCANT = 6
 
 
 class FeederPIID:
@@ -94,5 +93,19 @@ SCREEN_MODE_TO_INT = {
 
 INT_TO_SCREEN_MODE = {v: k for k, v in SCREEN_MODE_TO_INT.items()}
 
+SCREEN_DISPLAY_MAP = {
+    "left-gram-display": "left",
+    "eaten-gram-display": "eaten",
+    "percentage-display": "percentage",
+    "left": "left",
+    "eaten": "eaten",
+    "percentage": "percentage",
+    "percent": "percentage",
+    0: "left",
+    1: "eaten",
+    2: "percentage",
+}
+
 # Events fired on HA event bus
 EVENT_FEED_COMPLETED = f"{DOMAIN}_feed_completed"
+

@@ -29,8 +29,11 @@ venv/
 ENV/
 
 # Home Assistant
+config/
+test_config/
 .storage/
 home-assistant.log
+home-assistant_v2.db
 
 # IDE & OS
 .vscode/

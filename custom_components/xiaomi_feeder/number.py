@@ -25,8 +25,6 @@ async def async_setup_entry(
 
     numbers: list[NumberEntity] = [
         XiaomiFeederManualPortionsNumber(coordinator, entry),
-        XiaomiFeederTargetPortionsNumber(coordinator, entry),
-        XiaomiFeederDesiccantLifespanNumber(coordinator, entry),
         XiaomiFeederRefillIntervalNumber(coordinator, entry),
         XiaomiFeederIntakeThresholdNumber(coordinator, entry),
     ]
@@ -73,58 +71,6 @@ class XiaomiFeederManualPortionsNumber(XiaomiFeederBaseNumber):
     async def async_set_native_value(self, value: float) -> None:
         self.coordinator.manual_portions = int(value)
         self.async_write_ha_state()
-
-
-class XiaomiFeederTargetPortionsNumber(XiaomiFeederBaseNumber):
-    """RAM default feeding portions setting."""
-
-    _attr_translation_key = "target_portions"
-    _attr_native_min_value = 1
-    _attr_native_max_value = 30
-    _attr_native_step = 1
-    _attr_mode = NumberMode.BOX
-    _attr_icon = "mdi:numeric"
-
-    def __init__(self, coordinator: XiaomiFeederCoordinator, entry: ConfigEntry) -> None:
-        super().__init__(coordinator, entry)
-        self._attr_unique_id = f"{entry.entry_id}_target_portions"
-        self._attr_name = "Target Feeding Portions"
-
-    @property
-    def native_value(self) -> Optional[float]:
-        if self.coordinator.data and self.coordinator.data.status:
-            val = self.coordinator.data.status.target_feeding_portions
-            return float(val) if val is not None else None
-        return None
-
-    async def async_set_native_value(self, value: float) -> None:
-        await self.coordinator.async_set_target_portions(int(value))
-
-
-class XiaomiFeederDesiccantLifespanNumber(XiaomiFeederBaseNumber):
-    """Desiccant replacement duration setting."""
-
-    _attr_translation_key = "desiccant_lifespan"
-    _attr_native_min_value = 1
-    _attr_native_max_value = 180
-    _attr_native_step = 1
-    _attr_native_unit_of_measurement = UnitOfTime.DAYS
-    _attr_mode = NumberMode.BOX
-    _attr_icon = "mdi:calendar-range"
-
-    def __init__(self, coordinator: XiaomiFeederCoordinator, entry: ConfigEntry) -> None:
-        super().__init__(coordinator, entry)
-        self._attr_unique_id = f"{entry.entry_id}_desiccant_lifespan"
-        self._attr_name = "Desiccant Lifespan (Days)"
-
-    @property
-    def native_value(self) -> float:
-        if self.coordinator.data:
-            return float(self.coordinator.data.desiccant_lifespan)
-        return 30.0
-
-    async def async_set_native_value(self, value: float) -> None:
-        await self.coordinator.async_set_desiccant_lifespan(int(value))
 
 
 class XiaomiFeederRefillIntervalNumber(XiaomiFeederBaseNumber):

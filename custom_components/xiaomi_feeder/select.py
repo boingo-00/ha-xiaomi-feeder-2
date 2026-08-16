@@ -10,7 +10,14 @@ from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import DEFAULT_MODEL, DOMAIN, INT_TO_SCREEN_MODE
+from .const import (
+    DEFAULT_MODEL,
+    DOMAIN,
+    FeederPIID,
+    FeederSIID,
+    INT_TO_SCREEN_MODE,
+    SCREEN_DISPLAY_MAP,
+)
 from .coordinator import XiaomiFeederCoordinator
 
 
@@ -62,9 +69,18 @@ class XiaomiFeederScreenDisplaySelect(XiaomiFeederBaseSelect):
     def current_option(self) -> Optional[str]:
         if self.coordinator.data and self.coordinator.data.status:
             mode = self.coordinator.data.status.screen_display_mode
-            if mode in self._attr_options:
-                return mode
+            if mode:
+                mapped = SCREEN_DISPLAY_MAP.get(str(mode).lower())
+                if mapped in self._attr_options:
+                    return mapped
+            # Check raw properties as fallback
+            raw = self.coordinator.data.status.raw_properties.get(
+                f"{FeederSIID.CUSTOM}_{FeederPIID.SCREEN_DISPLAY}"
+            )
+            if raw in INT_TO_SCREEN_MODE:
+                return INT_TO_SCREEN_MODE[raw]
         return "left"
 
     async def async_select_option(self, option: str) -> None:
         await self.coordinator.async_set_screen_display_mode(option)
+

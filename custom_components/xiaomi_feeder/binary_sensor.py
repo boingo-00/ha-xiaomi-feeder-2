@@ -33,7 +33,6 @@ async def async_setup_entry(
         XiaomiFeederDeviceFaultSensor(coordinator, entry),
         XiaomiFeederDispensingSensor(coordinator, entry),
         XiaomiFeederRefillAlertSensor(coordinator, entry),
-        XiaomiFeederDesiccantExpiredSensor(coordinator, entry),
         XiaomiFeederDstActiveSensor(coordinator, entry),
     ]
 
@@ -187,25 +186,6 @@ class XiaomiFeederRefillAlertSensor(XiaomiFeederBaseBinarySensor):
     def is_on(self) -> Optional[bool]:
         if self.coordinator.data and self.coordinator.data.status:
             return bool(self.coordinator.data.status.raw_properties.get("add_meal_notify", 0))
-        return None
-
-
-class XiaomiFeederDesiccantExpiredSensor(XiaomiFeederBaseBinarySensor):
-    """Desiccant expired alert."""
-
-    _attr_translation_key = "desiccant_expired"
-    _attr_device_class = BinarySensorDeviceClass.PROBLEM
-    _attr_icon = "mdi:calendar-alert"
-
-    def __init__(self, coordinator: XiaomiFeederCoordinator, entry: ConfigEntry) -> None:
-        super().__init__(coordinator, entry)
-        self._attr_unique_id = f"{entry.entry_id}_desiccant_expired"
-        self._attr_name = "Desiccant Expired"
-
-    @property
-    def is_on(self) -> Optional[bool]:
-        if self.coordinator.data:
-            return self.coordinator.data.desiccant_expired
         return None
 
 

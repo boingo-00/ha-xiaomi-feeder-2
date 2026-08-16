@@ -39,10 +39,6 @@ skip_next_meal:
       selector:
         boolean:
 
-reset_desiccant:
-  name: Reset Desiccant Timer
-  description: Resets the desiccant countdown timer to the current date.
-
 set_refill_reminder:
   name: Set Refill Reminder
   description: Configures the hopper refill reminder switch and cycle interval hours.

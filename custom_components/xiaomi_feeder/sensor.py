@@ -33,10 +33,9 @@ async def async_setup_entry(
         XiaomiFeederDailyEatenSensor(coordinator, entry),
         XiaomiFeederLastMealSensor(coordinator, entry),
         XiaomiFeederPreviousMealSensor(coordinator, entry),
+        XiaomiFeederTargetPortionsSensor(coordinator, entry),
         XiaomiFeederNextFeedSensor(coordinator, entry),
         XiaomiFeederScheduleCountSensor(coordinator, entry),
-        XiaomiFeederDesiccantDaysSensor(coordinator, entry),
-        XiaomiFeederDesiccantExpirySensor(coordinator, entry),
         XiaomiFeederLastFeedEventSensor(coordinator, entry),
         XiaomiFeederFeedHistorySensor(coordinator, entry),
         XiaomiFeederTimezoneSensor(coordinator, entry),
@@ -44,6 +43,7 @@ async def async_setup_entry(
     ]
 
     async_add_entities(sensors)
+
 
 
 class XiaomiFeederBaseSensor(CoordinatorEntity[XiaomiFeederCoordinator], SensorEntity):
@@ -191,44 +191,6 @@ class XiaomiFeederScheduleCountSensor(XiaomiFeederBaseSensor):
         return None
 
 
-class XiaomiFeederDesiccantDaysSensor(XiaomiFeederBaseSensor):
-    """Days remaining before desiccant replacement."""
-
-    _attr_translation_key = "desiccant_days_left"
-    _attr_native_unit_of_measurement = UnitOfTime.DAYS
-    _attr_icon = "mdi:calendar-clock"
-
-    def __init__(self, coordinator: XiaomiFeederCoordinator, entry: ConfigEntry) -> None:
-        super().__init__(coordinator, entry)
-        self._attr_unique_id = f"{entry.entry_id}_desiccant_days_left"
-        self._attr_name = "Desiccant Days Left"
-
-    @property
-    def native_value(self) -> Optional[int]:
-        if self.coordinator.data:
-            return self.coordinator.data.desiccant_days_left
-        return None
-
-
-class XiaomiFeederDesiccantExpirySensor(XiaomiFeederBaseSensor):
-    """Timestamp of desiccant expiry."""
-
-    _attr_translation_key = "desiccant_expiry"
-    _attr_device_class = SensorDeviceClass.TIMESTAMP
-    _attr_icon = "mdi:calendar-alert"
-
-    def __init__(self, coordinator: XiaomiFeederCoordinator, entry: ConfigEntry) -> None:
-        super().__init__(coordinator, entry)
-        self._attr_unique_id = f"{entry.entry_id}_desiccant_expiry"
-        self._attr_name = "Desiccant Expiry Date"
-
-    @property
-    def native_value(self) -> Optional[datetime]:
-        if self.coordinator.data:
-            return self.coordinator.data.desiccant_expiry_date
-        return None
-
-
 class XiaomiFeederLastFeedEventSensor(XiaomiFeederBaseSensor):
     """Summary of the last completed feeding event."""
 
@@ -314,3 +276,22 @@ class XiaomiFeederDailyProgressSensor(XiaomiFeederBaseSensor):
         if self.coordinator.data and self.coordinator.data.status:
             return self.coordinator.data.status.raw_properties.get("schedule_progress")
         return None
+
+
+class XiaomiFeederTargetPortionsSensor(XiaomiFeederBaseSensor):
+    """Target feeding portions telemetry sensor."""
+
+    _attr_translation_key = "target_portions"
+    _attr_icon = "mdi:numeric"
+
+    def __init__(self, coordinator: XiaomiFeederCoordinator, entry: ConfigEntry) -> None:
+        super().__init__(coordinator, entry)
+        self._attr_unique_id = f"{entry.entry_id}_target_portions"
+        self._attr_name = "Target Feeding Portions"
+
+    @property
+    def native_value(self) -> Optional[int]:
+        if self.coordinator.data and self.coordinator.data.status:
+            return self.coordinator.data.status.target_feeding_portions
+        return None
+

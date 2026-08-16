@@ -19,6 +19,55 @@
       "already_configured": "Dieses Gerät ist in Home Assistant bereits eingerichtet."
     }
   },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Fütterungsplan-Einstellungen",
+        "description": "{schedule_summary}\n\nWählen Sie eine Aktion zum Verwalten der Offline-Fütterungszeiten im Speicher (EEPROM):",
+        "menu_options": {
+          "add_meal": "Neue Mahlzeit hinzufügen",
+          "edit_select": "Bestehende Mahlzeit bearbeiten",
+          "delete_select": "Mahlzeit löschen",
+          "clear_all": "Alle Mahlzeiten löschen"
+        }
+      },
+      "add_meal": {
+        "title": "Mahlzeit hinzufügen",
+        "description": "Tägliche Fütterungszeit und Anzahl der Portionen (1 Portion ≈ 10–15g) festlegen:",
+        "data": {
+          "time": "Uhrzeit",
+          "portions": "Portionen"
+        }
+      },
+      "edit_select": {
+        "title": "Mahlzeit zum Bearbeiten auswählen",
+        "description": "Wählen Sie die gewünschte Fütterungszeit aus:",
+        "data": {
+          "meal_index": "Gespeicherte Mahlzeit"
+        }
+      },
+      "edit_meal": {
+        "title": "Mahlzeit bearbeiten",
+        "description": "Uhrzeit, Portionen und Wochentage anpassen:",
+        "data": {
+          "time": "Uhrzeit",
+          "portions": "Portionen (1 Portion ≈ 10-15g)",
+          "days": "Wiederholung (Wochentage)"
+        }
+      },
+      "delete_select": {
+        "title": "Mahlzeit löschen",
+        "description": "Wählen Sie die Mahlzeit aus, die aus dem Gerätespeicher entfernt werden soll:",
+        "data": {
+          "meal_index": "Zu löschende Mahlzeit"
+        }
+      },
+      "clear_all": {
+        "title": "Alle Mahlzeiten löschen",
+        "description": "Möchten Sie wirklich alle gespeicherten Offline-Fütterungszeiten aus dem Gerätespeicher löschen?"
+      }
+    }
+  },
   "entity": {
     "sensor": {
       "bowl_weight": { "name": "Futternapf-Gewicht" },
@@ -27,12 +76,11 @@
       "previous_meal_intake": { "name": "Vorherige Mahlzeit Menge" },
       "next_feeding": { "name": "Nächste Fütterung" },
       "schedule_count": { "name": "Anzahl gespeicherter Mahlzeiten" },
-      "desiccant_days_left": { "name": "Trockenmittel verbleibende Tage" },
-      "desiccant_expiry": { "name": "Trockenmittel Ablaufdatum" },
       "last_feed_event": { "name": "Letztes Fütterungsereignis" },
       "feed_history": { "name": "Fütterungsverlauf" },
       "timezone_offset": { "name": "Geräte-Zeitzonen-Offset" },
-      "daily_progress": { "name": "Tagesplan Fortschritt" }
+      "daily_progress": { "name": "Tagesplan Fortschritt" },
+      "target_portions": { "name": "Standard-Portionen" }
     },
     "binary_sensor": {
       "hopper_low": { "name": "Futterbehälter fast leer" },
@@ -42,21 +90,17 @@
       "fault": { "name": "Gerätefehler" },
       "dispensing": { "name": "Gibt Futter aus" },
       "refill_alert": { "name": "Nachfüll-Erinnerung aktiv" },
-      "desiccant_expired": { "name": "Trockenmittel abgelaufen" },
       "dst_active": { "name": "Sommerzeit aktiv" }
     },
     "button": {
       "feed": { "name": "Füttern" },
       "tare_scale": { "name": "Waage tarieren" },
-      "reset_desiccant": { "name": "Trockenmittel-Timer zurücksetzen" },
       "clear_refill_alert": { "name": "Nachfüll-Warnung bestätigen" },
       "clear_intake_alert": { "name": "Fressmengen-Warnung bestätigen" },
       "clear_schedule": { "name": "Hardware-Zeitplan löschen" }
     },
     "number": {
       "manual_portions": { "name": "Manuelle Futterportionen" },
-      "target_portions": { "name": "Standard-Portionen" },
-      "desiccant_lifespan": { "name": "Trockenmittel Nutzungsdauer" },
       "refill_interval": { "name": "Nachfüll-Intervall" },
       "intake_threshold": { "name": "Minimale Fressmenge Alarmschwelle" }
     },

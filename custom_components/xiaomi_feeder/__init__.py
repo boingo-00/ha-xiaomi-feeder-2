@@ -51,9 +51,6 @@ SERVICE_SKIP_NEXT_MEAL_SCHEMA = vol.Schema(
     }
 )
 
-SERVICE_RESET_DESICCANT = "reset_desiccant"
-SERVICE_RESET_DESICCANT_SCHEMA = vol.Schema({})
-
 SERVICE_SET_REFILL_REMINDER = "set_refill_reminder"
 SERVICE_SET_REFILL_REMINDER_SCHEMA = vol.Schema(
     {
@@ -115,9 +112,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         enabled = call.data.get("enabled", True)
         await coordinator.async_set_skip_next_meal(skip=enabled, count=count)
 
-    async def async_handle_reset_desiccant(call: ServiceCall) -> None:
-        await coordinator.async_reset_desiccant()
-
     async def async_handle_set_refill(call: ServiceCall) -> None:
         enabled = call.data["enabled"]
         hours = call.data.get("interval_hours", 6)
@@ -142,7 +136,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         (SERVICE_FEED, async_handle_feed, SERVICE_FEED_SCHEMA),
         (SERVICE_CALIBRATE_SCALE, async_handle_calibrate, SERVICE_CALIBRATE_SCHEMA),
         (SERVICE_SKIP_NEXT_MEAL, async_handle_skip_next_meal, SERVICE_SKIP_NEXT_MEAL_SCHEMA),
-        (SERVICE_RESET_DESICCANT, async_handle_reset_desiccant, SERVICE_RESET_DESICCANT_SCHEMA),
         (SERVICE_SET_REFILL_REMINDER, async_handle_set_refill, SERVICE_SET_REFILL_REMINDER_SCHEMA),
         (SERVICE_SET_INTAKE_ALARM, async_handle_set_intake, SERVICE_SET_INTAKE_ALARM_SCHEMA),
         (SERVICE_CLEAR_REFILL_ALERT, async_handle_clear_refill, SERVICE_CLEAR_REFILL_ALERT_SCHEMA),

@@ -23,7 +23,6 @@ async def async_setup_entry(
     buttons: list[ButtonEntity] = [
         XiaomiFeederFeedButton(coordinator, entry),
         XiaomiFeederTareScaleButton(coordinator, entry),
-        XiaomiFeederResetDesiccantButton(coordinator, entry),
         XiaomiFeederClearRefillAlertButton(coordinator, entry),
         XiaomiFeederClearIntakeAlertButton(coordinator, entry),
         XiaomiFeederClearScheduleButton(coordinator, entry),
@@ -79,22 +78,6 @@ class XiaomiFeederTareScaleButton(XiaomiFeederBaseButton):
     async def async_press(self) -> None:
         """Handle button press."""
         await self.coordinator.async_calibrate_scale()
-
-
-class XiaomiFeederResetDesiccantButton(XiaomiFeederBaseButton):
-    """Reset desiccant timer button."""
-
-    _attr_translation_key = "reset_desiccant"
-    _attr_icon = "mdi:refresh"
-
-    def __init__(self, coordinator: XiaomiFeederCoordinator, entry: ConfigEntry) -> None:
-        super().__init__(coordinator, entry)
-        self._attr_unique_id = f"{entry.entry_id}_reset_desiccant"
-        self._attr_name = "Reset Desiccant Timer"
-
-    async def async_press(self) -> None:
-        """Handle button press."""
-        await self.coordinator.async_reset_desiccant()
 
 
 class XiaomiFeederClearRefillAlertButton(XiaomiFeederBaseButton):
