@@ -69,7 +69,7 @@ class XiaomiFeederManualPortionsNumber(XiaomiFeederBaseNumber):
         return float(self.coordinator.manual_portions)
 
     async def async_set_native_value(self, value: float) -> None:
-        self.coordinator.manual_portions = int(value)
+        await self.coordinator.async_set_manual_portions(int(value))
         self.async_write_ha_state()
 
 

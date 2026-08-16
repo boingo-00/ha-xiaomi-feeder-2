@@ -93,14 +93,28 @@ class XiaomiFeederCoordinator(DataUpdateCoordinator[FeederCoordinatorData]):
     @manual_portions.setter
     def manual_portions(self, value: int) -> None:
         self._manual_portions = max(1, min(30, int(value)))
+        self._stored_data["manual_portions"] = self._manual_portions
+        self.hass.async_create_task(self._async_save_storage())
+
+    async def async_set_manual_portions(self, portions: int) -> None:
+        """Set manual portions in HA and sync to feeder hardware."""
+        self._manual_portions = max(1, min(30, int(portions)))
+        self._stored_data["manual_portions"] = self._manual_portions
+        await self._async_save_storage()
+        try:
+            await self.hass.async_add_executor_job(self.client.set_target_portions, self._manual_portions)
+        except Exception as err:
+            _LOGGER.debug("Could not push target_portions to feeder: %s", err)
 
     async def async_load_storage(self) -> None:
         """Load persistent data from Home Assistant storage."""
         loaded = await self._store.async_load()
         if isinstance(loaded, dict):
             self._stored_data = loaded
+            self._manual_portions = self._stored_data.get("manual_portions", 1)
         else:
             self._stored_data = {
+                "manual_portions": 1,
                 "feed_history": [],
                 "master_schedule_raw": "",
             }
@@ -128,6 +142,18 @@ class XiaomiFeederCoordinator(DataUpdateCoordinator[FeederCoordinatorData]):
             if not self._stored_data.get("master_schedule_raw") and schedule.raw_string:
                 self._stored_data["master_schedule_raw"] = schedule.raw_string
                 await self._async_save_storage()
+
+            # 3. Auto-sync manual portions to feeder hardware if feeder rebooted / desynced
+            if status.target_feeding_portions and status.target_feeding_portions != self._manual_portions:
+                _LOGGER.debug(
+                    "Feeder target portions (%s) differs from slider setting (%s). Re-syncing...",
+                    status.target_feeding_portions,
+                    self._manual_portions,
+                )
+                try:
+                    await self.hass.async_add_executor_job(self.client.set_target_portions, self._manual_portions)
+                except Exception as err:
+                    _LOGGER.debug("Could not re-sync target_portions to feeder: %s", err)
 
             now = dt_util.now()
 
