@@ -1,0 +1,81 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Mit Xiaomi Smart Pet Feeder 2 verbinden",
+        "description": "Geben Sie die IP-Adresse und das 32-stellige Geräte-Token für Ihren Xiaomi Futterautomaten ein.",
+        "data": {
+          "host": "IP-Adresse",
+          "token": "Geräte-Token (32 Zeichen Hex)",
+          "name": "Gerätename"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Verbindung zum Futterautomaten fehlgeschlagen. Bitte prüfen Sie IP-Adresse und Token.",
+      "unknown": "Ein unerwarteter Fehler ist aufgetreten."
+    },
+    "abort": {
+      "already_configured": "Dieses Gerät ist in Home Assistant bereits eingerichtet."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "bowl_weight": { "name": "Futternapf-Gewicht" },
+      "daily_eaten": { "name": "Heute gefressen" },
+      "last_meal_intake": { "name": "Letzte Mahlzeit Menge" },
+      "previous_meal_intake": { "name": "Vorherige Mahlzeit Menge" },
+      "next_feeding": { "name": "Nächste Fütterung" },
+      "schedule_count": { "name": "Anzahl gespeicherter Mahlzeiten" },
+      "desiccant_days_left": { "name": "Trockenmittel verbleibende Tage" },
+      "desiccant_expiry": { "name": "Trockenmittel Ablaufdatum" },
+      "last_feed_event": { "name": "Letztes Fütterungsereignis" },
+      "feed_history": { "name": "Fütterungsverlauf" },
+      "timezone_offset": { "name": "Geräte-Zeitzonen-Offset" },
+      "daily_progress": { "name": "Tagesplan Fortschritt" }
+    },
+    "binary_sensor": {
+      "hopper_low": { "name": "Futterbehälter fast leer" },
+      "food_stuck": { "name": "Futterstau / Motor blockiert" },
+      "dispense_error": { "name": "Ausgabefehler" },
+      "food_heap": { "name": "Futteransammlung am Auswurf" },
+      "fault": { "name": "Gerätefehler" },
+      "dispensing": { "name": "Gibt Futter aus" },
+      "refill_alert": { "name": "Nachfüll-Erinnerung aktiv" },
+      "desiccant_expired": { "name": "Trockenmittel abgelaufen" },
+      "dst_active": { "name": "Sommerzeit aktiv" }
+    },
+    "button": {
+      "feed": { "name": "Füttern" },
+      "tare_scale": { "name": "Waage tarieren" },
+      "reset_desiccant": { "name": "Trockenmittel-Timer zurücksetzen" },
+      "clear_refill_alert": { "name": "Nachfüll-Warnung bestätigen" },
+      "clear_intake_alert": { "name": "Fressmengen-Warnung bestätigen" },
+      "clear_schedule": { "name": "Hardware-Zeitplan löschen" }
+    },
+    "number": {
+      "manual_portions": { "name": "Manuelle Futterportionen" },
+      "target_portions": { "name": "Standard-Portionen" },
+      "desiccant_lifespan": { "name": "Trockenmittel Nutzungsdauer" },
+      "refill_interval": { "name": "Nachfüll-Intervall" },
+      "intake_threshold": { "name": "Minimale Fressmenge Alarmschwelle" }
+    },
+    "switch": {
+      "screen_auto_sleep": { "name": "Display Ruhezustand" },
+      "screen_progress": { "name": "Display bei Ausgabe aktivieren" },
+      "child_lock": { "name": "Kindersicherung Taste" },
+      "anti_stacking": { "name": "Anti-Stau Motormodus" },
+      "grain_compensation": { "name": "Körnergewicht-Kompensation" },
+      "schedule_enabled": { "name": "Hardware-Zeitplan aktiv" },
+      "skip_next_meal": { "name": "Nächste Fütterung überspringen" },
+      "refill_reminder": { "name": "Nachfüll-Erinnerung" },
+      "intake_alarm": { "name": "Fressmengen-Alarm" }
+    },
+    "select": {
+      "screen_display_mode": { "name": "Display Anzeige-Modus" }
+    },
+    "text": {
+      "hardware_schedule": { "name": "Hardware-Zeitplan" }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "domain": "xiaomi_feeder",
+  "name": "Xiaomi Smart Pet Feeder 2",
+  "codeowners": ["@stephan"],
+  "config_flow": true,
+  "documentation": "https://github.com/DerSteph/ha-xiaomi-feeder",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/DerSteph/ha-xiaomi-feeder/issues",
+  "requirements": [
+    "xiaomi-feeder-2>=0.2.0"
+  ],
+  "version": "1.0.0"
+}

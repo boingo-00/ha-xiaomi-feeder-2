@@ -1,0 +1,81 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Xiaomi Smart Pet Feeder 2",
+        "description": "Enter the IP address and 32-character local device token for your Xiaomi Pet Feeder 2.",
+        "data": {
+          "host": "IP Address",
+          "token": "Device Token (32 hex characters)",
+          "name": "Device Name"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to the feeder. Please check the IP address and token.",
+      "unknown": "An unexpected error occurred."
+    },
+    "abort": {
+      "already_configured": "This device is already configured in Home Assistant."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "bowl_weight": { "name": "Bowl Food Weight" },
+      "daily_eaten": { "name": "Daily Eaten Weight" },
+      "last_meal_intake": { "name": "Last Meal Intake" },
+      "previous_meal_intake": { "name": "Previous Meal Intake" },
+      "next_feeding": { "name": "Next Feeding" },
+      "schedule_count": { "name": "Hardware Schedule Count" },
+      "desiccant_days_left": { "name": "Desiccant Days Left" },
+      "desiccant_expiry": { "name": "Desiccant Expiry Date" },
+      "last_feed_event": { "name": "Last Feed Event" },
+      "feed_history": { "name": "Feeding History" },
+      "timezone_offset": { "name": "Device Timezone Offset" },
+      "daily_progress": { "name": "Daily Schedule Progress" }
+    },
+    "binary_sensor": {
+      "hopper_low": { "name": "Hopper Low" },
+      "food_stuck": { "name": "Food Stuck / Motor Jam" },
+      "dispense_error": { "name": "Dispense Error" },
+      "food_heap": { "name": "Food Heap Detected" },
+      "fault": { "name": "Device Fault" },
+      "dispensing": { "name": "Dispensing" },
+      "refill_alert": { "name": "Refill Alert" },
+      "desiccant_expired": { "name": "Desiccant Expired" },
+      "dst_active": { "name": "DST Active" }
+    },
+    "button": {
+      "feed": { "name": "Feed" },
+      "tare_scale": { "name": "Tare Scale" },
+      "reset_desiccant": { "name": "Reset Desiccant Timer" },
+      "clear_refill_alert": { "name": "Clear Refill Alert" },
+      "clear_intake_alert": { "name": "Clear Low Intake Alert" },
+      "clear_schedule": { "name": "Clear Hardware Schedule" }
+    },
+    "number": {
+      "manual_portions": { "name": "Manual Feed Portions" },
+      "target_portions": { "name": "Target Feeding Portions" },
+      "desiccant_lifespan": { "name": "Desiccant Lifespan" },
+      "refill_interval": { "name": "Refill Reminder Interval" },
+      "intake_threshold": { "name": "Low Intake Alarm Threshold" }
+    },
+    "switch": {
+      "screen_auto_sleep": { "name": "Screen Auto Sleep" },
+      "screen_progress": { "name": "Screen Progress Light-up" },
+      "child_lock": { "name": "Physical Child Lock" },
+      "anti_stacking": { "name": "Anti-Stacking Motor Mode" },
+      "grain_compensation": { "name": "Grain Weight Compensation" },
+      "schedule_enabled": { "name": "Master Hardware Schedule" },
+      "skip_next_meal": { "name": "Skip Next Meal" },
+      "refill_reminder": { "name": "Refill Reminder" },
+      "intake_alarm": { "name": "Low Intake Alarm" }
+    },
+    "select": {
+      "screen_display_mode": { "name": "Screen Display Metric" }
+    },
+    "text": {
+      "hardware_schedule": { "name": "Hardware Schedule" }
+    }
+  }
+}

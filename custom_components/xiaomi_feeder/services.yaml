@@ -1,0 +1,98 @@
+feed:
+  name: Feed Portions
+  description: Dispenses a specified number of food portions (1–30).
+  fields:
+    portions:
+      name: Portions
+      description: Number of portions to dispense (1 to 30).
+      required: false
+      default: 1
+      selector:
+        number:
+          min: 1
+          max: 30
+          mode: slider
+
+calibrate_scale:
+  name: Tare Bowl Scale
+  description: Calibrates and zeroes out the load cell of the stainless steel food bowl.
+
+skip_next_meal:
+  name: Skip Next Meal
+  description: Temporarily suppresses the next scheduled hardware feeding without losing your master schedule.
+  fields:
+    count:
+      name: Meals Count
+      description: Number of upcoming scheduled meals to skip (default 1).
+      required: false
+      default: 1
+      selector:
+        number:
+          min: 1
+          max: 10
+          mode: box
+    enabled:
+      name: Enabled
+      description: Set to true to skip or false to resume normal schedule immediately.
+      required: false
+      default: true
+      selector:
+        boolean:
+
+reset_desiccant:
+  name: Reset Desiccant Timer
+  description: Resets the desiccant countdown timer to the current date.
+
+set_refill_reminder:
+  name: Set Refill Reminder
+  description: Configures the hopper refill reminder switch and cycle interval hours.
+  fields:
+    enabled:
+      name: Enabled
+      description: Whether the refill reminder is active.
+      required: true
+      selector:
+        boolean:
+    interval_hours:
+      name: Interval Hours
+      description: Reminder cycle duration in hours (1-24).
+      required: false
+      default: 6
+      selector:
+        number:
+          min: 1
+          max: 24
+          mode: box
+
+set_intake_alarm:
+  name: Set Intake Alarm
+  description: Configures abnormal low food intake alert threshold percentage.
+  fields:
+    enabled:
+      name: Enabled
+      description: Whether the low intake alarm is active.
+      required: true
+      selector:
+        boolean:
+    threshold_pct:
+      name: Threshold Percentage
+      description: Trigger alarm when intake is below this percentage of daily planned food.
+      required: false
+      default: 10
+      selector:
+        number:
+          min: 1
+          max: 100
+          mode: box
+
+clear_refill_alert:
+  name: Clear Refill Alert
+  description: Acknowledges and clears the active hopper refill reminder alert.
+
+clear_intake_alert:
+  name: Clear Intake Alert
+  description: Acknowledges and clears the active low food intake alert.
+
+clear_schedule:
+  name: Clear Hardware Schedule
+  description: Erases all offline scheduled meals from internal device EEPROM memory.
